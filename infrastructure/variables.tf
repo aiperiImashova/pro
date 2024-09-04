@@ -1,7 +1,7 @@
 variable "project_id" {
-  description = "analog-gearing-434306-b0"
+  description = "id"
   type        = string
-  # default = "--"
+  default = "analog-gearing-434306-b0"
 }
 
 variable "region" {
