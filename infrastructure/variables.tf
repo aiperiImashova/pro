@@ -13,19 +13,19 @@ variable "region" {
 variable "network_name" {
   description = "Имя VPC сети"
   type        = string
-  default     = "network-03"
+  default     = "network-04"
 }
 
 variable "subnet_name" {
   description = "Имя подсети"
   type        = string
-  default     = "subnet-03"
+  default     = "subnet-04"
 }
 
 variable "cluster_name" {
   description = "Имя GKE кластера"
   type        = string
-  default     = "cluster-03"
+  default     = "cluster-04"
 }
 
 variable "node_count" {
