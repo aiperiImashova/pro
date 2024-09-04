@@ -27,29 +27,14 @@ terraform_plan:
 terraform_apply:
   stage: terraform
   script:
+    - ls -la # Проверяем наличие файла tfplan
     - terraform apply -auto-approve tfplan
   only:
     - main
   tags:
     - test
-
-build:
-  stage: build
-  script:
-    - docker build -t $DOCKER_IMAGE_NAME .
-  only:
-    - main
-  tags:
-    - docker
-
-push:
-  stage: push
-  script:
-    - docker push $DOCKER_IMAGE_NAME
-  only:
-    - main
-  tags:
-    - docker
+  needs:
+    - terraform_plan
 
 
 
