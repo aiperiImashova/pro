@@ -5,7 +5,8 @@ variables:
   DOCKER_IMAGE_NAME: "iaiperi04772/app"
 
 stages:
-  - terraform
+  - terraform-plan
+  - terraform-apply
   - build
   - push
 
@@ -15,7 +16,7 @@ before_script:
   - terraform init -backend-config="credentials=/tmp/account.json" -input=false
 
 terraform_plan:
-  stage: terraform
+  stage: terraform-plan
   script:
     - terraform plan -out=tfplan
     - ls -la # Проверьте наличие файла tfplan
@@ -31,7 +32,7 @@ terraform_plan:
     - test
 
 terraform_apply:
-  stage: terraform
+  stage: terraform-apply
   script:
     - ls -la /home/aku/builds/PLdSiK9Q1/0/root/aiko/infrastructure # Проверяем наличие файла tfplan
     - terraform apply -auto-approve infrastructure/tfplan
