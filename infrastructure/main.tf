@@ -19,10 +19,10 @@ resource "google_container_cluster" "primary_cluster" {
   network    = google_compute_network.vpc_network.name
   subnetwork = google_compute_subnetwork.vpc_subnet.name
 
-  initial_node_count = 2  # Уменьшите количество узлов
+  initial_node_count = var.node_count  # Уменьшите количество узлов
   node_config {
-    machine_type = "n1-standard-1"  # Уменьшите тип машины, если это возможно
-    disk_size_gb = 50  # Уменьшите размер диска, если это возможно
+    machine_type = var.node_machine_type
+    disk_size_gb = 20  # Уменьшите размер диска до 20 GB
   }
 }
 
