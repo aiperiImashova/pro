@@ -31,7 +31,7 @@ variable "cluster_name" {
 variable "node_count" {
   description = "Количество нод в кластере"
   type        = number
-  default     = 2
+  default     = 1
 }
 
 variable "node_machine_type" {
