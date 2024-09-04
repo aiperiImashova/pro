@@ -1,5 +1,7 @@
 variables:
-  # TF_ROOT: "."
+  GOOGLE_CREDENTIALS: $GCP_SERVICE_ACCOUNT_KEY
+  GOOGLE_PROJECT: $GCP_PROJECT_ID
+  GOOGLE_REGION: $GCP_REGION
   DOCKER_IMAGE_NAME: "iaiperi04772/app"
 
 stages:
@@ -9,12 +11,13 @@ stages:
 
 before_script:
   - cd infrastructure
-  - terraform init
+  - echo "$GOOGLE_CREDENTIALS" > /tmp/account.json
+  - terraform init -backend-config="credentials=/tmp/account.json" -input=false
 
 terraform_plan:
   stage: terraform
   script:
-    - terraform plan
+    - terraform plan -out=tfplan
   only:
     - merge_requests
     - main
@@ -24,11 +27,30 @@ terraform_plan:
 terraform_apply:
   stage: terraform
   script:
-    - terraform apply -auto-approve
+    - terraform apply -auto-approve tfplan
   only:
     - main
   tags:
     - test
+
+build:
+  stage: build
+  script:
+    - docker build -t $DOCKER_IMAGE_NAME .
+  only:
+    - main
+  tags:
+    - docker
+
+push:
+  stage: push
+  script:
+    - docker push $DOCKER_IMAGE_NAME
+  only:
+    - main
+  tags:
+    - docker
+
 
 
 

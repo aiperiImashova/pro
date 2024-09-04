@@ -1,7 +1,7 @@
 variable "project_id" {
-  description = "ID вашего проекта в Google Cloud"
+  description = "analog-gearing-434306-b0"
   type        = string
-  default = "--"
+  # default = "--"
 }
 
 variable "region" {
