@@ -7,31 +7,31 @@ variable "project_id" {
 variable "region" {
   description = "Регион, в котором будет создан кластер"
   type        = string
-  default     = "us-central1" 
+  default     = "us-east1" 
 }
 
 variable "network_name" {
   description = "Имя VPC сети"
   type        = string
-  default     = "network-02"
+  default     = "network-03"
 }
 
 variable "subnet_name" {
   description = "Имя подсети"
   type        = string
-  default     = "subnet-02"
+  default     = "subnet-03"
 }
 
 variable "cluster_name" {
   description = "Имя GKE кластера"
   type        = string
-  default     = "cluster-02"
+  default     = "cluster-03"
 }
 
 variable "node_count" {
   description = "Количество нод в кластере"
   type        = number
-  default     = 1
+  default     = 2
 }
 
 variable "node_machine_type" {
