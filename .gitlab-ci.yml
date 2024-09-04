@@ -1,0 +1,54 @@
+variables:
+  # TF_ROOT: "."
+  DOCKER_IMAGE_NAME: "iaiperi04772/app"
+
+stages:
+  - terraform
+  - build
+  - push
+
+before_script:
+  - cd infrastructure
+  - terraform init
+
+terraform_plan:
+  stage: terraform
+  script:
+    - terraform plan
+  only:
+    - merge_requests
+    - main
+  tags:
+    - test
+
+terraform_apply:
+  stage: terraform
+  script:
+    - terraform apply -auto-approve
+  only:
+    - main
+  tags:
+    - test
+
+
+
+# ----- DOCKER -----
+
+# build:
+#   stage: build
+#   script:
+#     - docker build -t $DOCKER_IMAGE_NAME:$CI_COMMIT_SHA .
+#   only:
+#     - main  
+
+# push:
+#   stage: push
+#   script:
+#     # Логин в Docker Hub
+#     - echo $DOCKER_HUB_PASSWORD | docker login -u $DOCKER_HUB_USERNAME --password-stdin
+#     # Тегирование и пуш образа
+#     - docker tag $DOCKER_IMAGE_NAME:$CI_COMMIT_SHA $DOCKER_IMAGE_NAME:latest
+#     - docker push $DOCKER_IMAGE_NAME:$CI_COMMIT_SHA
+#     - docker push $DOCKER_IMAGE_NAME:latest
+#   only:
+#     - main  
