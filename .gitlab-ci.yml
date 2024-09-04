@@ -19,9 +19,11 @@ terraform_plan:
   script:
     - terraform plan -out=tfplan
     - ls -la # Проверьте наличие файла tfplan
+    - ls -la /home/aku/builds/PLdSiK9Q1/0/root/aiko/infrastructure # Проверьте путь к tfplan
   artifacts:
     paths:
-      - tfplan
+      - infrastructure/tfplan
+    expire_in: 1 week
   only:
     - merge_requests
     - main
@@ -31,15 +33,14 @@ terraform_plan:
 terraform_apply:
   stage: terraform
   script:
-    - ls -la # Проверяем наличие файла tfplan
-    - terraform apply -auto-approve tfplan
+    - ls -la /home/aku/builds/PLdSiK9Q1/0/root/aiko/infrastructure # Проверяем наличие файла tfplan
+    - terraform apply -auto-approve infrastructure/tfplan
   only:
     - main
   tags:
     - test
   dependencies:
     - terraform_plan
-
 
 
 
