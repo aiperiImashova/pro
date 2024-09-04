@@ -2,7 +2,7 @@ variables:
   GOOGLE_CREDENTIALS: $GCP_SERVICE_ACCOUNT_KEY
   GOOGLE_PROJECT: $GCP_PROJECT_ID
   GOOGLE_REGION: $GCP_REGION
-  DOCKER_IMAGE_NAME: "iaiperi04772/app"
+  # DOCKER_IMAGE_NAME: "iaiperi04772/app"
 
 stages:
   - terraform-plan
@@ -23,7 +23,7 @@ terraform_plan:
     - ls -la /home/aku/builds/PLdSiK9Q1/0/root/aiko/infrastructure # Проверьте путь к tfplan
   artifacts:
     paths:
-      - infrastructure/tfplan
+      - tfplan
     expire_in: 1 week
   only:
     - merge_requests
@@ -35,7 +35,7 @@ terraform_apply:
   stage: terraform-apply
   script:
     - ls -la /home/aku/builds/PLdSiK9Q1/0/root/aiko/infrastructure # Проверяем наличие файла tfplan
-    - terraform apply -auto-approve infrastructure/tfplan
+    - terraform apply -auto-approve tfplan
   only:
     - main
   tags:
