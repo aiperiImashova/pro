@@ -2,7 +2,7 @@ variables:
   GOOGLE_CREDENTIALS: $SERVICE_ACCOUNT_KEY
   GOOGLE_PROJECT: $GCP_PROJECT_ID
   GOOGLE_REGION: $GCP_REGION
-  # DOCKER_IMAGE_NAME: "iaiperi04772/app"
+  DOCKER_IMAGE_NAME: "iaiperi04772/app"
 
 stages:
   - terraform-plan
@@ -51,7 +51,7 @@ terraform_apply:
 # build:
 #   stage: build
 #   script:
-#     - docker build -t $DOCKER_IMAGE_NAME:$CI_COMMIT_SHA .
+#     - docker build -t $DOCKER_IMAGE_NAME:$CI_COMMIT_SHA dockerfiles/frontend
 #   only:
 #     - main  
 
