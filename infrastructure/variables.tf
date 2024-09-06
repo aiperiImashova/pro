@@ -37,5 +37,5 @@ variable "node_count" {
 variable "node_machine_type" {
   description = "Тип машины для нод"
   type        = string
-  default     = "t2-medium" 
+  default     = "e2-medium" 
 }
