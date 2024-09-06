@@ -62,20 +62,51 @@ before_script:
 build:
   stage: build
   script:
-    - docker build -t $DOCKER_IMAGE_NAME:$CI_COMMIT_SHA dockerfiles/frontend
+    - docker build -t $DOCKERHUB_USERNAME/myrepo-frontend:latest dockerfiles/frontend
   only:
     - main  
   tags:
     - test
 
-push:
-  stage: push
+build_backend:
+  stage: build
   script:
-  
-    - docker tag $DOCKER_IMAGE_NAME:$CI_COMMIT_SHA $DOCKER_IMAGE_NAME:latest
-    - docker push $DOCKER_IMAGE_NAME:$CI_COMMIT_SHA
-    - docker push $DOCKER_IMAGE_NAME:latest
+    - docker build -t $DOCKERHUB_USERNAME/myrepo-backend:latest dockerfiles/backend
   only:
     - main
   tags:
-    - test  
+    - test
+
+# push:
+#   stage: push
+#   script:
+  
+#     - docker tag $DOCKER_IMAGE_NAME:$CI_COMMIT_SHA $DOCKER_IMAGE_NAME:latest
+#     - docker push $DOCKER_IMAGE_NAME:$CI_COMMIT_SHA
+#     - docker push $DOCKER_IMAGE_NAME:latest
+#   only:
+#     - main
+#   tags:
+#     - test  
+
+push_frontend:
+  stage: push
+  script:
+    - docker push $DOCKERHUB_USERNAME/myrepo-frontend:latest
+  only:
+    - main
+  dependencies:
+    - build_frontend
+  tags:
+    - test
+# Загрузка образа backend в DockerHub
+push_backend:
+  stage: push
+  script:
+    - docker push $DOCKERHUB_USERNAME/myrepo-backend:latest
+  only:
+    - main
+  dependencies:
+    - build_backend
+  tags:
+    - test
