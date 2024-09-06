@@ -22,7 +22,7 @@ resource "google_container_cluster" "primary_cluster" {
 
   initial_node_count = 2  # Уменьшите количество узлов
   node_config {
-    # machine_type = var.node_machine_type
+    machine_type = var.node_machine_type
     disk_size_gb = 20  # Уменьшите размер диска до 20 GB
   }
 }
