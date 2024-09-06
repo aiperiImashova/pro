@@ -28,14 +28,14 @@ resource "google_container_cluster" "primary_cluster" {
 }
 
 # Создаем node pool (если нужно отдельным ресурсом)
-resource "google_container_node_pool" "primary_nodes" {
-  name       = "primary-node-pool"
-  cluster    = google_container_cluster.primary_cluster.name
-  location   = var.region
-  node_count = var.node_count
+# resource "google_container_node_pool" "primary_nodes" {
+#   name       = "primary-node-pool"
+#   cluster    = google_container_cluster.primary_cluster.name
+#   location   = var.region
+#   node_count = var.node_count
 
 
-  node_config {
-    machine_type = var.node_machine_type
-  }
-}
+#   node_config {
+#     machine_type = var.node_machine_type
+#   }
+# }
