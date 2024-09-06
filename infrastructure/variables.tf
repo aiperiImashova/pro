@@ -7,7 +7,7 @@ variable "project_id" {
 variable "region" {
   description = "Регион, в котором будет создан кластер"
   type        = string
-  default     = "us-east1" 
+  default     = "us-west1" 
 }
 
 variable "network_name" {
