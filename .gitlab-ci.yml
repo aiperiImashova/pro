@@ -23,7 +23,7 @@ terraform_plan:
     - pwd
     - terraform plan -out=tfplan
     - ls -la # Проверьте наличие файла tfplan
-    - ls -la /home/aku/builds/PLdSiK9Q1/0/root/aiko/infrastructure # Проверьте путь к tfplan
+    # - ls -la /home/aku/builds/PLdSiK9Q1/0/root/aiko/infrastructure # Проверьте путь к tfplan
   artifacts:
     paths:
       - /home/aku/builds/-r9MgiTWR/0/root/aiko/infrastructure
