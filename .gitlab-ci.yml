@@ -48,12 +48,12 @@ terraform_apply:
 
 # ----- DOCKER -----
 
-image: docker:latest
+# image: docker:latest
 
-services:
-  - docker:dind
-  dependencies:
-    - terraform_plan
+# services:
+#   - docker:dind
+#   dependencies:
+#     - terraform_plan
 
 
 # before_script:
