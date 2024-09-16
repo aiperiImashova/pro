@@ -9,10 +9,8 @@ variables:
 stages:
   - terraform-plan
   - terraform-apply
-  # - build-frontend
-  # - build-backend
-  # - push-frontend
-  # - push-backend
+  - build
+  - push
 
 before_script:
   - cd infrastructure
@@ -49,48 +47,52 @@ terraform_apply:
 
 # ----- DOCKER -----
 
-# image: docker:latest
+image: docker:latest
 
-# services:
-#   - docker:dind
-
-
-# before_script:
-#   - echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
-
-# build_frontend:
-#   stage: build-frontend
-#   script:
-#     - docker build -t $DOCKERHUB_USERNAME/myrepo-frontend:latest dockerfiles/frontend
-#   only:
-#     - main  
-#   tags:
-#     - test
-
-# build_backend:
-#   stage: build-backend
-#   script:
-#     - docker build -t $DOCKERHUB_USERNAME/myrepo-backend:latest dockerfiles/backend
-#   only:
-#     - main
-#   tags:
-#     - test
+services:
+  - docker:dind
 
 
-# push_frontend:
-#   stage: push-frontend
-#   script:
-#     - docker push $DOCKERHUB_USERNAME/myrepo-frontend:latest
-#   only:
-#     - main
-#   tags:
-#     - test
-# # Загрузка образа backend в DockerHub
-# push_backend:
-#   stage: push-backend
-#   script:
-#     - docker push $DOCKERHUB_USERNAME/myrepo-backend:latest
-#   only:
-#     - main
-#   tags:
-#     - test
+before_script:
+  - echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+
+build_frontend:
+  stage: build
+  script:
+    - docker build -t $DOCKERHUB_USERNAME/myrepo-frontend:latest dockerfiles/frontend
+  only:
+    - main
+  dependencies:
+    - terraform_plan  
+  tags:
+    - test
+
+build_backend:
+  stage: build
+  script:
+    - docker build -t $DOCKERHUB_USERNAME/myrepo-backend:latest dockerfiles/backend
+  only:
+    - main
+  dependencies:
+    - terraform_plan
+  tags:
+    - test
+
+
+push_frontend:
+  stage: push
+  script:
+    - docker push $DOCKERHUB_USERNAME/myrepo-frontend:latest
+  only:
+    - main
+  tags:
+    - test
+
+push_backend:
+  stage: push
+  script:
+    - docker push $DOCKERHUB_USERNAME/myrepo-backend:latest
+  only:
+    - main
+  tags:
+    - test
