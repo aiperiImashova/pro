@@ -26,7 +26,7 @@ terraform_plan:
     # - ls -la /home/aku/builds/PLdSiK9Q1/0/root/aiko/infrastructure # Проверьте путь к tfplan
   artifacts:
     paths:
-      - tfplan # - /home/aku/builds/-r9MgiTWR/0/root/aiko/infrastructure
+      - /home/aku/builds/sZ-MUEDG9/0/root/aiko/infrastructure # - /home/aku/builds/-r9MgiTWR/0/root/aiko/infrastructure
     expire_in: 1 week
   only:
     - merge_requests
