@@ -5,7 +5,6 @@ variables:
   DOCKER_IMAGE_NAME: "iaiperi04772/app"
   DOCKER_TLS_CERTDIR: ""
   DOCKERHUB_USERNAME: "iaiperi04772"
-   
 
 stages:
   - terraform-plan
@@ -16,6 +15,7 @@ stages:
   - push_backend
 
 before_script:
+  - echo "Global before_script"
   - pwd
   - cd infrastructure
   - pwd
@@ -25,11 +25,11 @@ before_script:
 terraform_plan:
   stage: terraform-plan
   script:
-    - pwd
+    - pwd  # Проверьте текущую директорию
     - terraform plan -out=tfplan
   artifacts:
     paths:
-     - $CI_BUILDS_DIR/tfplan 
+      - $CI_BUILDS_DIR/tfplan 
     expire_in: 1 week
   only:
     - merge_requests
@@ -48,15 +48,10 @@ terraform_apply:
   dependencies:
     - terraform_plan
 
-
-
-#----- DOCKER -----
-
 image: docker:latest
 
 services:
   - docker:dind
-
 
 before_script:
   - echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
@@ -79,7 +74,6 @@ build_backend:
   tags:
     - test
 
-
 push_frontend:
   stage: push_frontend
   script:
@@ -90,7 +84,7 @@ push_frontend:
     - build_frontend
   tags:
     - test
-# Загрузка образа backend в DockerHub
+
 push_backend:
   stage: push_backend
   script:
