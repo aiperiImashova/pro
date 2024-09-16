@@ -83,8 +83,6 @@ push_frontend:
     - docker push $DOCKERHUB_USERNAME/myrepo-frontend:latest
   only:
     - main
-  dependencies:
-    - build-frontend
   tags:
     - test
 # Загрузка образа backend в DockerHub
@@ -94,7 +92,5 @@ push_backend:
     - docker push $DOCKERHUB_USERNAME/myrepo-backend:latest
   only:
     - main
-  dependencies:
-    - build-backend
   tags:
     - test
