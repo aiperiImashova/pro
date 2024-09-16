@@ -23,7 +23,7 @@ terraform_plan:
     - terraform plan -out=tfplan
   artifacts:
     paths:
-      - $CI_BUILDS_DIR/tfplan 
+     - $CI_BUILDS_DIR/tfplan 
     expire_in: 1 week
   only:
     - merge_requests
@@ -44,7 +44,7 @@ terraform_apply:
 
 
 
------ DOCKER -----
+#----- DOCKER -----
 
 image: docker:latest
 
