@@ -25,6 +25,7 @@ before_script:
 terraform_plan:
   stage: terraform-plan
   script:
+    - pwd
     - terraform plan -out=tfplan
   artifacts:
     paths:
