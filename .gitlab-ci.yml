@@ -16,7 +16,9 @@ stages:
   - push_backend
 
 before_script:
+  - pwd
   - cd infrastructure
+  - pwd
   - echo "$GOOGLE_CREDENTIALS" > /tmp/account.json
   - terraform init -backend-config="credentials=/tmp/account.json" -input=false
 
