@@ -11,7 +11,8 @@ stages:
   - terraform-apply
   - build-frontend
   - build-backend
-  - push
+  - push-frontend
+  - push-backend
 
 before_script:
   - cd infrastructure
