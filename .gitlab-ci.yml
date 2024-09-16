@@ -2,15 +2,17 @@ variables:
   GOOGLE_CREDENTIALS: $SERVICE_ACCOUNT_KEY
   GOOGLE_PROJECT: $GCP_PROJECT_ID
   GOOGLE_REGION: $GCP_REGION
-  # DOCKER_IMAGE_NAME: "iaiperi04772/app"
-  # DOCKER_TLS_CERTDIR: ""
+  DOCKER_IMAGE_NAME: "iaiperi04772/app"
+  DOCKER_TLS_CERTDIR: ""
    
 
 stages:
   - terraform-plan
   - terraform-apply
-  # - build
-  # - push
+  - build_frontend
+  - build_backend
+  - push_frontend
+  - push_backend
 
 before_script:
   - cd infrastructure
@@ -56,7 +58,7 @@ before_script:
   - echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
 
 build_frontend:
-  stage: build
+  stage: build_frontend
   script:
     - docker build -t $DOCKERHUB_USERNAME/myrepo-frontend:latest dockerfiles/frontend
   only:
@@ -65,7 +67,7 @@ build_frontend:
     - test
 
 build_backend:
-  stage: build
+  stage: build_backend
   script:
     - docker build -t $DOCKERHUB_USERNAME/myrepo-backend:latest dockerfiles/backend
   only:
@@ -75,7 +77,7 @@ build_backend:
 
 
 push_frontend:
-  stage: push
+  stage: push_frontend
   script:
     - docker push $DOCKERHUB_USERNAME/myrepo-frontend:latest
   only:
@@ -86,7 +88,7 @@ push_frontend:
     - test
 # Загрузка образа backend в DockerHub
 push_backend:
-  stage: push
+  stage: push_backend
   script:
     - docker push $DOCKERHUB_USERNAME/myrepo-backend:latest
   only:
