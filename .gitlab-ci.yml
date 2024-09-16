@@ -4,6 +4,7 @@ variables:
   GOOGLE_REGION: $GCP_REGION
   DOCKER_IMAGE_NAME: "iaiperi04772/app"
   DOCKER_TLS_CERTDIR: ""
+  DOCKERHUB_USERNAME: "iaiperi04772"
    
 
 stages:
