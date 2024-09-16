@@ -37,7 +37,7 @@ terraform_plan:
 terraform_apply:
   stage: terraform-apply
   script:
-    - ls -la /home/aku/builds/PLdSiK9Q1/0/root/aiko/infrastructure # Проверяем наличие файла tfplan
+    #- ls -la /home/aku/builds/PLdSiK9Q1/0/root/aiko/infrastructure # Проверяем наличие файла tfplan
     - terraform apply -auto-approve tfplan
   only:
     - main
