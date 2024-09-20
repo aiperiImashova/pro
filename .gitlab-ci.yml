@@ -11,6 +11,7 @@ stages:
   - terraform-apply
   - build
   - push
+  - deploy
 
 before_script:
   - cd infrastructure
@@ -90,5 +91,17 @@ push_backend:
     - main
   dependencies:
     - terraform_plan
+  tags:
+    - test
+
+deploy_application:
+  stage: deploy
+  script:
+    # - cd ../
+    - gcloud container clusters get-credentials aiperi --region europe-west1  --project $GCP_PROJECT_ID
+    - helm --install my-app ./helm-chart
+    - main
+  dependencies:
+    - push_backend
   tags:
     - test

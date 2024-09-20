@@ -13,19 +13,19 @@ variable "region" {
 variable "network_name" {
   description = "Имя VPC сети"
   type        = string
-  default     = "network02"
+  default     = "aiperi-vpc"
 }
 
 variable "subnet_name" {
   description = "Имя подсети"
   type        = string
-  default     = "subnet02"
+  default     = "aiperi-subnet"
 }
 
 variable "cluster_name" {
   description = "Имя GKE кластера"
   type        = string
-  default     = "cluster02"
+  default     = "aiperi"
 }
 
 variable "node_count" {

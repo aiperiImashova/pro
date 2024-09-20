@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .Release.Name }}-frontend
-  namespase: frontend
+  namespace: frontend
   labels:
     app: {{ .Release.Name }}-frontend
 spec:

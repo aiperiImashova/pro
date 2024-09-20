@@ -2,24 +2,25 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: allow-egress-to-database
+  namespace: backend
 spec:
-  podSelector: {}  
+  podSelector:
+    matchLabels: {}
   egress:
-  - to:
-    - podSelector:
-        matchLabels: {}
-      namespaceSelector:
-        matchLabels:
-          tier: database
-  - to:
-    - namespaceSelector:
-        matchLabels:
-          kubernetes.io/metadata.name: kube-system
-      podSelector:
-        matchLabels:
-          k8s-app: kube-dns
-    ports:
-    - protocol: UDP
-      port: 53  
-
-
+    - to:
+        - podSelector:
+            matchLabels: {}
+          namespaceSelector:
+            matchLabels:
+              tier: database
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: kube-system
+          podSelector:
+            matchLabels:
+              k8s-app: kube-dns
+      ports:
+      - protocol: UDP
+        port: 53
+       
