@@ -9,8 +9,8 @@ variables:
 stages:
   - terraform-plan
   - terraform-apply
-  - build
-  - push
+  # - build
+  # - push
   - deploy
 
 before_script:
