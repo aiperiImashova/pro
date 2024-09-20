@@ -102,7 +102,5 @@ deploy_application:
     - gcloud container clusters get-credentials aiperi-1 --region europe-west1  --project $GCP_PROJECT_ID
     - helm --install my-app /helm-chart
     - main
-  dependencies:
-    - push_backend
   tags:
     - test
