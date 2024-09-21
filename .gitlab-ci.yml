@@ -50,50 +50,50 @@ terraform_apply:
 
 # ----- DOCKER -----
 
-# build_frontend:
-#   stage: build
-#   script:
-#     - docker build -t $DOCKERHUB_USERNAME/myrepo-frontend:latest ../dockerfiles/frontend
-#   only:
-#     - main
-#   dependencies:
-#     - terraform_plan  
-#   tags:
-#     - test
+build_frontend:
+  stage: build
+  script:
+    - docker build -t $DOCKERHUB_USERNAME/myrepo-frontend:latest ../dockerfiles/frontend
+  only:
+    - main
+  dependencies:
+    - terraform_plan  
+  tags:
+    - test
 
-# build_backend:
-#   stage: build
-#   script:
-#     - docker build -t $DOCKERHUB_USERNAME/myrepo-backend:latest ../dockerfiles/backend
-#   only:
-#     - main
-#   dependencies:
-#     - terraform_plan
-#   tags:
-#     - test
+build_backend:
+  stage: build
+  script:
+    - docker build -t $DOCKERHUB_USERNAME/myrepo-backend:latest ../dockerfiles/backend
+  only:
+    - main
+  dependencies:
+    - terraform_plan
+  tags:
+    - test
 
 
-# push_frontend:
-#   stage: push
-#   script:
-#     - docker push $DOCKERHUB_USERNAME/myrepo-frontend:latest
-#   only:
-#     - main
-#   dependencies:
-#     - terraform_plan
-#   tags:
-#     - test
+push_frontend:
+  stage: push
+  script:
+    - docker push $DOCKERHUB_USERNAME/myrepo-frontend:latest
+  only:
+    - main
+  dependencies:
+    - terraform_plan
+  tags:
+    - test
 
-# push_backend:
-#   stage: push
-#   script:
-#     - docker push $DOCKERHUB_USERNAME/myrepo-backend:latest
-#   only:
-#     - main
-#   dependencies:
-#     - terraform_plan
-#   tags:
-#     - test
+push_backend:
+  stage: push
+  script:
+    - docker push $DOCKERHUB_USERNAME/myrepo-backend:latest
+  only:
+    - main
+  dependencies:
+    - terraform_plan
+  tags:
+    - test
 
 deploy_application:
   stage: deploy
