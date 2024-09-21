@@ -1,8 +1,8 @@
 # Создаем VPC
-resource "google_compute_network" "vpc_network" {
-  name = var.network_name
-  auto_create_subnetworks = false
-}
+# resource "google_compute_network" "vpc_network" {
+#   name = var.network_name
+#   auto_create_subnetworks = false
+# }
 
 # Создаем подсеть
 resource "google_compute_subnetwork" "vpc_subnet" {
@@ -17,7 +17,7 @@ resource "google_container_cluster" "primary_cluster" {
   name     = var.cluster_name
   location = var.region
 
-  network    = google_compute_network.vpc_network.name
+  # network    = google_compute_network.vpc_network.name
   subnetwork = google_compute_subnetwork.vpc_subnet.name
 
   initial_node_count = 1  

@@ -94,13 +94,13 @@ terraform_apply:
 #   tags:
 #     - test
 
-deploy_application:
-  stage: deploy
-  script:
+# deploy_application:
+#   stage: deploy
+#   script:
     # - cd ../
-    - pwd
-    - gcloud container clusters get-credentials aiperi-1 --region europe-west1  --project $GCP_PROJECT_ID
-    - helm --install my-app /helm-chart
-    - main
-  tags:
-    - test
+  #   - pwd
+  #   - gcloud container clusters get-credentials aiperi-1 --region europe-west1  --project $GCP_PROJECT_ID
+  #   - helm --install my-app /helm-chart
+  #   - main
+  # tags:
+  #   - test
