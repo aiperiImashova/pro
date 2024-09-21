@@ -1,7 +1,7 @@
 variable "project_id" {
   description = "id"
   type        = string
-  default = "analog-gearing-434306-b0"
+  default = "reference-node-434715-i6"
 }
 
 variable "region" {
@@ -13,13 +13,13 @@ variable "region" {
 variable "network_name" {
   description = "Имя VPC сети"
   type        = string
-  default     = "aiperi-1"
+  default     = "aiperi-vpc"
 }
 
 variable "subnet_name" {
   description = "Имя подсети"
   type        = string
-  default     = "aiperi-1"
+  default     = "aiperi-subnet"
 }
 
 variable "cluster_name" {

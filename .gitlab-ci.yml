@@ -11,13 +11,14 @@ stages:
   - terraform-apply
   # - build
   # - push
-  - deploy
+  # - deploy
 
 before_script:
   - cd infrastructure
+  - pwd
   - echo "$GOOGLE_CREDENTIALS" > /tmp/account.json
   - terraform init -backend-config="credentials=/tmp/account.json" -input=false
-  - echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+  # - echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
 
 terraform_plan:
   stage: terraform-plan
