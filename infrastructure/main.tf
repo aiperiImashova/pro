@@ -27,3 +27,38 @@ resource "google_container_cluster" "primary_cluster" {
   }
 }
 
+provider "kubernetes" {
+  host                   = google_container_cluster.primary_cluster.endpoint
+  cluster_ca_certificate = base64decode(google_container_cluster.primary_cluster.master_auth.0.cluster_ca_certificate)
+  token                  = data.google_client_config.default.access_token
+}
+
+# Устанавливаем Helm
+provider "helm" {
+  kubernetes {
+    host                   = google_container_cluster.primary_cluster.endpoint
+    cluster_ca_certificate = base64decode(google_container_cluster.primary_cluster.master_auth.0.cluster_ca_certificate)
+    token                  = data.google_client_config.default.access_token
+  }
+}
+
+# Установка ArgoCD через Helm
+resource "helm_release" "argocd" {
+  name       = "argocd"
+  namespace  = "argocd"
+  create_namespace = true
+
+  chart      = "argo-cd"
+  repository = "https://argoproj.github.io/argo-helm"
+  version    = "5.32.1"  # Укажите желаемую версию Helm-чарта
+
+  set {
+    name  = "server.service.type"
+    value = "LoadBalancer"  # Установим тип сервиса как LoadBalancer для внешнего доступа
+  }
+
+  set {
+    name  = "redis.enabled"
+    value = "false"  # Выключим встроенный Redis (опционально)
+  }
+}
